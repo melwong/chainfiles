@@ -16,6 +16,79 @@
 <script src="<?php echo ACADP_PLUGIN_URL; ?>public/js/web3-connector.js"></script>
 <!--<script src="<?php echo ACADP_PLUGIN_URL; ?>public/js/web3-connector-moralis.js"></script>-->
 
+<!--Mel: 20/08/22. Get blockchain network name and set it as payment gateway name-->
+<script>
+
+	jQuery(document).ready(function($) {
+		$('#acadp-checkout-submit-btn').click(function() { 
+
+			let chainId = 0;
+			let chainName = '';
+			let explorerUrl = '';
+
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			provider.getNetwork().then((chainName) => {
+
+				console.log("chainId: " + chainName.chainId);
+				chainId = chainName.chainId;
+
+				//For simplicity, ensure end of explorerUrl has a trailing slash - '/'
+				switch( chainId ) {
+					case 1:
+						chainName = 'Ethereum';
+						explorerUrl = 'https://etherscan.io/tx/';	
+						break;
+					case 5:
+						chainName = 'Goerli Ethereum Testnet';
+						explorerUrl = 'https://goerli.etherscan.io/tx/';	
+						break;
+					case 50:
+						chainName = 'XDC';
+						explorerUrl = 'https://explorer.xinfin.network/txs/';	
+						break;
+					case 51:
+						chainName = 'XDC Apothem Testnet';
+						explorerUrl = 'https://explorer.apothem.network/';
+						break;
+					case 137:
+						chainName = 'Polygon';
+						explorerUrl = 'https://polygonscan.com/tx/';
+						break;
+					case 80001:
+						chainName = 'Polygon Mumbai Testnet';
+						explorerUrl = 'https://mumbai.polygonscan.com/tx/';
+						break;
+					default:
+						chainName = 'Unknown';
+						explorerUrl = 'https://etherscan.io/tx/';
+						break;
+				};
+
+				//DEBUG
+				console.log("chainName: " + chainName);
+				console.log("explorerUrl: " + explorerUrl);
+
+				$("#acadp-checkout-form").append(
+					'<input type="hidden" name="chain_name" value="' +
+						chainName +
+						'" />'
+				);
+				$("#acadp-checkout-form").append(
+					'<input type="hidden" name="explorer_url" value="' +
+						explorerUrl +
+						'" />'
+				);
+			});
+			
+			//Submit the form
+			$("acadp-checkout-form").submit();
+
+		});
+	});
+	
+</script>
+<!--Mel: End-->
+
 <!-- Mel: 29/01/22. Modal to show you must use matching wallet -->
 <div class="modal fade" id="walletMismatchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -75,7 +148,7 @@
 		<input type="hidden" id="block-number" name="block_number" />
 		<input type="hidden" id="gas-used" name="gas_used" />
 		<input type="hidden" id="amount" name="amount" />
-		<input type="hidden" name="payment_gateway" value="XDC" />
+		<!--<input type="hidden" name="payment_gateway" value="XDC" /> Mel: 20/08/22-->
 		<input type="hidden" name="featured" value="1" />
 		<span id="loading"></span>
 		

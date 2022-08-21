@@ -78,13 +78,16 @@
     				<td><?php esc_html_e( 'Payment Method', 'advanced-classifieds-and-directory-pro' ); ?></td>
             		<td>
                     	<?php 
-						$gateway = esc_html( $post_meta['payment_gateway'][0] );
-						if ( 'free' == $gateway ) {
-							esc_html_e( 'Free Submission', 'advanced-classifieds-and-directory-pro' );
-						} else {
-							$gateway_settings = get_option( 'acadp_gateway_' . $gateway . '_settings' );				
-							echo ! empty( $gateway_settings['label'] ) ? esc_html( $gateway_settings['label'] ) : $gateway;
-						}
+						//Mel: 20/08/22. To add the chain name
+						esc_html_e( $post_meta['chain_name'][0] );	
+						//$gateway = esc_html( $post_meta['payment_gateway'][0] );
+
+						// if ( 'free' == $gateway ) {
+						// 	esc_html_e( 'Free Submission', 'advanced-classifieds-and-directory-pro' );
+						// } else {
+						// 	$gateway_settings = get_option( 'acadp_gateway_' . $gateway . '_settings' );				
+						// 	echo ! empty( $gateway_settings['label'] ) ? esc_html( $gateway_settings['label'] ) : $gateway;
+						// }
 						?>
                     </td>
         		</tr>
@@ -109,7 +112,8 @@
             		<td><?php echo esc_html( $post_meta['contract_address'][0] ); ?></td>
         		</tr>
     		</table>
-			<a class="btn btn-default" href="https://explorer.xinfin.network/txs/<?php echo esc_html( $post_meta['transaction_id'][0] ); ?>"><?php esc_html_e( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ); ?></a>
+			<a class="btn btn-default" href="<?php echo esc_html( $post_meta['explorer_url'][0] ) . esc_html( $post_meta['transaction_id'][0] ); ?>"><?php esc_html_e( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ); ?></a>
+			<!-- <a class="btn btn-default" href="https://explorer.xinfin.network/txs/<?php //echo esc_html( $post_meta['transaction_id'][0] ); ?>"><?php //esc_html_e( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ); ?></a> Mel: 20/08/22-->
     	</div>
     </div>
 	

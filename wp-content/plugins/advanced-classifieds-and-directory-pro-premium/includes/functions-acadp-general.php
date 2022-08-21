@@ -1327,6 +1327,10 @@ function acadp_order_completed( $order ) {
 	update_post_meta( $order['id'], 'file_hash', $order['file_hash'] );
 	update_post_meta( $order['id'], 'contract_address', $order['contract_address'] );
 	
+	//Mel: 20/08/22
+	update_post_meta( $order['id'], 'chain_name', $order['chain_name'] );
+	update_post_meta( $order['id'], 'explorer_url', $order['explorer_url'] );
+	
 	// If the order has featured
 	$featured = get_post_meta( $order['id'], 'featured', true );
 	
@@ -1336,6 +1340,10 @@ function acadp_order_completed( $order ) {
 
 		//Mel: 27/01/22. Add blockchain tx hash so that it can be viewed on listing page
 		update_post_meta( $post_id, 'tx_hash', $order['transaction_id'] );
+		
+		//Mel: 20/08/22. Add chain related info to be used on listing page
+		update_post_meta( $post_id, 'chain_name', $order['chain_name'] );
+		update_post_meta( $post_id, 'explorer_url', $order['explorer_url'] );
 	}
 	
 	// Hook for developers

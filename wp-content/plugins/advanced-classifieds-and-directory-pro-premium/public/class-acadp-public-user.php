@@ -994,12 +994,20 @@ class ACADP_Public_User {
 
 		//Create the array to store the metadata
 		$metadata = [];
-
-		$ipfs_cid = ( isset($_POST['ipfs_cid'] ) ? $_POST['ipfs_cid'] : '' );
-		$filenames = ( isset($_POST['filenames'] ) ? $_POST['filenames'] : '' );	//Read the filename array from the form
-
-		$metadata['name'] = ( isset($_POST['name'] ) ? $_POST['name'] : '' );
-		$metadata['description'] = ( isset($_POST['description'] ) ? $_POST['description'] : '' );
+		
+		//Mel: 20/08/22
+		$ipfs_cid = ( isset($_POST['ipfs_cid'] ) ? sanitize_text_field($_POST['ipfs_cid']) : '' );
+		$filenames = ( isset($_POST['filenames'] ) ? (array) $_POST['filenames'] : array() );	//Read the filename array from the form
+		// $ipfs_cid = ( isset($_POST['ipfs_cid'] ) ? $_POST['ipfs_cid'] : '' );
+		// $filenames = ( isset($_POST['filenames'] ) ? $_POST['filenames'] : '' );	//Read the filename array from the form
+		
+		$filenames = array_map( 'sanitize_text_field', $filenames );	//Mel: 20/08/22. To sanitize each array element
+		
+		//Mel: 20/08/22. Sanitize POST fields
+		$metadata['name'] = ( isset($_POST['name'] ) ? sanitize_text_field($_POST['name']) : '' );
+		$metadata['description'] = ( isset($_POST['description'] ) ? sanitize_text_field($_POST['description']) : '' );
+		//$metadata['name'] = ( isset($_POST['name'] ) ? $_POST['name'] : '' );
+		//$metadata['description'] = ( isset($_POST['description'] ) ? $_POST['description'] : '' );
 
 		$unique_id = uniqid();	//Generate a unique ID to represent the metadata filename
 
@@ -1069,6 +1077,21 @@ class ACADP_Public_User {
 				// }
 				// $x++;
 			}
+			
+			//Mel: 20/08/22. To add hash values in metadata
+			$file_hashes = ( isset($_POST['hashes'] ) ? (array) $_POST['hashes'] : array() );
+			$file_hashes = array_map( 'sanitize_text_field', $file_hashes );
+			
+			$i = 0;
+			foreach($file_hashes as $file_hash) {
+				if ($i == 0) {
+					$metadata['file_hash'] = $file_hash;
+				} else {
+					$metadata['file_hash' . '-' . $i] = $file_hash;
+				}
+				$i++;
+			}
+			//Mel: End
 		}
 		
 		//Convert the metadata array to JSON string.
@@ -1086,10 +1109,6 @@ class ACADP_Public_User {
 			fclose($myfile);
 			echo $unique_id . ".json";	//Return the json filename
 		}
-
-		//DEBUG
-		error_log(basename($unique_id . ".json"));
-
 	}
 	
 	/**

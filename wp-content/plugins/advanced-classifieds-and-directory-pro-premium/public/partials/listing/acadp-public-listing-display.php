@@ -147,8 +147,9 @@
 					$meta[] = sprintf( '<span class="glyphicon glyphicon-info-sign"></span>&nbsp;%s', implode( ', ', $category_links ) );
                 }
 
-                //Mel:
-                $meta[] = sprintf( '<span class="glyphicon glyphicon-zoom-in"></span>&nbsp;<a href="https://explorer.xinfin.network/txs/%s">%s</a>', esc_html__($post_meta['tx_hash'][0]), esc_html__( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ) );
+                //Mel: 20/08/22. To make it multi-chain
+				$meta[] = sprintf( '<span class="glyphicon glyphicon-zoom-in"></span>&nbsp;<a href="%s%s">%s</a>', esc_html__($post_meta['explorer_url'][0]), esc_html__($post_meta['tx_hash'][0]), esc_html__( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ) );
+                //$meta[] = sprintf( '<span class="glyphicon glyphicon-zoom-in"></span>&nbsp;<a href="https://explorer.xinfin.network/txs/%s">%s</a>', esc_html__($post_meta['tx_hash'][0]), esc_html__( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ) );
 
                 if (isset($post_meta['ipfs_metadata_cid'][0])) {
                     $meta[] = sprintf( '<span class="glyphicon glyphicon-file"></span>&nbsp;<a href="https://ipfs.io/ipfs/%s/metadata.json">%s</a>', esc_html__($post_meta['ipfs_metadata_cid'][0]), esc_html__( 'View on IPFS', 'advanced-classifieds-and-directory-pro' ) );

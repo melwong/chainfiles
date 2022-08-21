@@ -147,6 +147,10 @@ class ACADP_Public_Payments {
 		$user_wallet = isset( $_POST['user_wallet'] ) ? sanitize_text_field($_POST['user_wallet']) : '';
 		$contract_address = isset( $_POST['contract_address'] ) ? sanitize_text_field($_POST['contract_address']) : '';
 		
+		//Mel: 20/08/22
+		$chain_name = isset( $_POST['chain_name'] ) ? sanitize_text_field($_POST['chain_name']) : '';
+		$explorer_url = isset( $_POST['explorer_url'] ) ? sanitize_text_field($_POST['explorer_url']) : '';
+		
 		// place order
 		$new_order = array(
 			'post_title'   => sprintf( __( '[Order] Listing #%d' ), $post_id ),
@@ -197,7 +201,8 @@ class ACADP_Public_Payments {
 					//do_action( 'acadp_process_'.$gateway.'_payment', $order_id );	//Mel: 27/01/22
 					
 					//Mel: 27/01/22
-					acadp_order_completed( array( 'id' => $order_id, 'transaction_id' => $tx_hash, 'user_wallet' => $user_wallet, 'token_uri' => $token_uri, 'gas_used' => $gas_used, 'block_number' => $block_number, 'contract_address' => $contract_address, 'file_hash' => $file_hash ) );
+					acadp_order_completed( array( 'id' => $order_id, 'transaction_id' => $tx_hash, 'user_wallet' => $user_wallet, 'token_uri' => $token_uri, 'gas_used' => $gas_used, 'block_number' => $block_number, 'contract_address' => $contract_address, 'file_hash' => $file_hash, 'chain_name' => $chain_name, 'explorer_url' => $explorer_url ) );
+					//acadp_order_completed( array( 'id' => $order_id, 'transaction_id' => $tx_hash, 'user_wallet' => $user_wallet, 'token_uri' => $token_uri, 'gas_used' => $gas_used, 'block_number' => $block_number, 'contract_address' => $contract_address, 'file_hash' => $file_hash ) );
 
 					//Mel: 27/01/22. To finally display minting receipt page
 					$redirect_url = acadp_get_payment_receipt_page_link( $order_id );

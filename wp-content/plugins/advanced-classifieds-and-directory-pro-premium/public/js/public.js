@@ -1143,6 +1143,13 @@ var category = PUBLIC_FILE; //Set default file to be public meaning the file wil
                 return this.value;
               })
               .get();
+			
+			//Mel: 20/08/22. Get file hashes as array, ['sfssgfdgdggggdfg', 'err3rtere5fr45ter']
+			var hashes = $('input[name="hash[]"]')
+              .map(function () {
+                return this.value;
+              })
+              .get();
 
             //If file has not been uploaded to IPFS then pops an alert.
             if (!$("#ipfs-cid").length) {
@@ -1154,6 +1161,7 @@ var category = PUBLIC_FILE; //Set default file to be public meaning the file wil
                 action: "acadp_public_save_metadata",
                 ipfs_cid: document.getElementById("ipfs-cid").value,
                 filenames: filenames,
+				hashes: hashes,	//Mel: 20/08/22
                 name: document.getElementById("acadp-title").value,
                 description: document.getElementById("description").value,
                 security: acadp.ajax_nonce,

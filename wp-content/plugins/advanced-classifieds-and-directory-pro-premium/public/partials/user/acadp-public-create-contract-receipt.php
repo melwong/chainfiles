@@ -42,7 +42,7 @@
     				<td><?php echo esc_html($wallet_address); ?></td>
         		</tr>
     		</table>
-                <a class="btn btn-default" href="https://explorer.xinfin.network/txs/<?php echo $contract_tx_hash; ?>"><?php esc_html_e( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ); ?></a>
+                <!--Mel: 20/08/22 <a class="btn btn-default" href="https://explorer.xinfin.network/txs/<?php //echo $contract_tx_hash; ?>"><?php //esc_html_e( 'View on Block Explorer', 'advanced-classifieds-and-directory-pro' ); ?></a>-->
 		</div>
     </div>
 </div>
