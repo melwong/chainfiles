@@ -1,5 +1,11 @@
 <?php
 
+//Mel: 21/08/22. Remove logo from login page
+add_action('login_head', 'custom_login_logo');
+function custom_login_logo() {
+    echo '<style type ="text/css">.login h1 a { display:none!important; }</style>';
+}
+
 //Mel: Redirect to homepage after logged out
 add_action('wp_logout','auto_redirect_after_logout');
 function auto_redirect_after_logout(){
