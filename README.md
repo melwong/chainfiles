@@ -13,7 +13,7 @@
 ### How it works
 1. You need to install MetaMask wallet, then you may log in using that wallet.
 
-2. Watch this [video](https://youtu.be/nsnNvw2FmJs).
+2. Watch this [demo video](https://youtu.be/4E9L_MMTmy8).
 
 ### Support
 If you need help, contact us at hello@chainfiles.cf
